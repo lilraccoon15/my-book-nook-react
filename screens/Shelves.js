@@ -7,6 +7,8 @@ const Shelves = ({ route, navigation }) => {
     const { shelf, userId } = route.params;
     const [books, setBooks] = useState([]);
 
+    console.log(books);
+
     useEffect(() => {
         fetchBooksUser();
     }, []);
@@ -15,7 +17,8 @@ const Shelves = ({ route, navigation }) => {
         try {
           const response = await axios.get(`http://localhost:3000/getBooksShelves?userId=${userId}&shelf=${shelf}`);
           if (response && response.status === 200) {
-            setBooks(response.data);
+            // console.log(response.data.books)
+            setBooks(response.data.books);
           } else if (response && response.status === 404) {
             console.log("Le livre n'a pas été trouvé.");
             setBooks([]);
@@ -41,7 +44,7 @@ const Shelves = ({ route, navigation }) => {
         navigation.navigate('BookDetails', { book });
       };
 
-    console.log(shelf);
+    // console.log(shelf);
 
   return (
     <View style={styles.categoryContainer}>

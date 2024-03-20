@@ -9,6 +9,7 @@ const BookDetails = ({ route, navigation }) => {
   const [hoveredStar, setHoveredStar] = useState(0);
   const [bookStatus, setBookStatus] = useState(null);
   const [relatedBooks, setRelatedBooks] = useState([]);
+  const [rank, setRank] = useState(0);
 
   const getBookInfo = (book) => {
     return book.volumeInfo ? book : book.details;
@@ -207,6 +208,8 @@ const BookDetails = ({ route, navigation }) => {
       const response = await axios.get(`http://localhost:3000/getRank?bookId=${bookId}`);
       if (response && response.status === 200) {
         const rank = response.data.rank;
+        // console.log(response);
+        setRank(rank);
       } else {
         console.error('Erreur lors de la récupération du rang du livre.');
       }
@@ -244,7 +247,7 @@ const BookDetails = ({ route, navigation }) => {
 
       <Text style={styles.description}>{bookInfo.volumeInfo.description}</Text>
       <Text style={styles.authors}>Auteur(s): {bookInfo.volumeInfo.authors && bookInfo.volumeInfo.authors.join(', ')}</Text>
-      <Text>{rank}</Text>
+      <Text>{rank}/5</Text>
       <View style={styles.ratingContainer}>
       {[1, 2, 3, 4, 5].map((index) => (
         <TouchableOpacity
@@ -261,7 +264,7 @@ const BookDetails = ({ route, navigation }) => {
             color={(index <= (parseInt(bookStatus && bookStatus.status.stars) || rating)) ? '#f4511e' : 'gray'}
           />
         </TouchableOpacity>
-      ))};
+      ))}
       </View>
 
       <View style={styles.buttonContainer}>
@@ -307,7 +310,7 @@ const BookDetails = ({ route, navigation }) => {
         keyExtractor={(item, index) => index.toString()}
       />
     </View>
-  );
+  )
 };
 
 const styles = StyleSheet.create({
