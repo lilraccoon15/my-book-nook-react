@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "portfolio",
-    "slug": "portfolio",
+    "name": "my-book-nook",
+    "slug": "mybooknook",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
